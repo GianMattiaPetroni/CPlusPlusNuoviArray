@@ -1,25 +1,48 @@
-int *rimuovi(int base[], int dim, int numerodaeliminare)
+#include <iostream>
+using namespace std;
+
+int *rimuovinumero(int base[], int dim, int numerodaeliminare)
 {
-    int risultato[dim-1];
- 
-    for (int i = 0; i < dim; i++) 
+    int contatorenumerodaeliminare = 0;
+    for (int i = 0; i < dim; i++)
     {
-        risultato[i] = base[i];
+        if (base[i] == numerodaeliminare)
+        {
+            contatorenumerodaeliminare++;
+        }
     }
- 
-    for (int i = 0; i < dim - 1; i++) 
+    int* risultato = new int[dim - contatorenumerodaeliminare];
+
+    for (int i = 0; i < dim - contatorenumerodaeliminare; i++) // PRIMA PARTE
     {
-       if( risultato[i] == numerodaeliminare)
+        if (base[i] == numerodaeliminare){
+            for (int j = i; j < dim; j++){
+                risultato[j] = risultato[j+1];
+            }
+        }
+    }
+
+    for (int i = posizione; i < dim - 1; i++) // SECONDA PARTE
+    {
+        risultato[i] = base[i + 1];
     }
     return risultato;
 }
- 
+
 int main()
 {
- 
+
     int input[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     int dim = sizeof(input) / sizeof(input[0]);
     int elemento = 13;
     int cerca = 5;
     int posizione = 5;
- 
+
+    stampa(input, dim);
+
+    int *p = aggiungiInFondo(input, dim, elemento);
+
+    stampa(p, dim + 1);
+
+    return 0;
+}
